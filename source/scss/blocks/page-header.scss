@@ -246,11 +246,11 @@
       content: "";
       position: absolute;
       bottom: 0;
-      width: 100%;
+      width: 0;
       height: 2px;
       background-color: $c-light;
-      display: none;
-      left: 0;
+      right: 0;
+      transition: width 0.3s ease-out, color 0.2s ease-out;
 
       @media (max-width: $tablet) and (orientation: portrait) {
         left: 0;
@@ -267,7 +267,10 @@
 
     &.active {
       &::after {
-        display: block;
+        left: 0;
+        right: auto;
+        width: 100%;
+        transition-timing-function: ease-in;
       }
     }
 
@@ -275,10 +278,15 @@
     &:focus {
       color: $c-purple;
       outline: none;
+      transition-timing-function: ease-in;
 
       &::after {
         opacity: 1;
         background-color: $c-purple;
+        left: 0;
+        right: auto;
+        width: 100%;
+        transition-timing-function: ease-in;
       }
     }
   }
