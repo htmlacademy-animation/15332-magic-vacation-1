@@ -168,6 +168,8 @@
   color: $c-light;
   border: 2px solid transparent;
   border-radius: 50%;
+  opacity: 0;
+  transition: opacity ease-out 0.2s, color ease-in-out 0.2s;
 
   @media (min-width: $stop-scaling) {
     width: 40px;
@@ -206,6 +208,10 @@
     @include center;
   }
 
+  .social-block--active:hover & {
+    opacity: 1;
+  }
+
   &--fb {
     svg {
       width: 0.8rem;
@@ -219,6 +225,10 @@
   }
 
   &--insta {
+    .social-block--active:hover & {
+      transition-delay: 0.1s;
+    }
+
     svg {
       width: 1.5rem;
       height: 1.5rem;
@@ -231,6 +241,10 @@
   }
 
   &--vk {
+    .social-block--active:hover & {
+      transition-delay: 0.2s;
+    }
+
     svg {
       width: 1.7rem;
       height: 1rem;
