@@ -43,9 +43,18 @@
   border: 0;
   border-radius: 3rem;
   outline: none;
+  transform: scaleX(0);
+  opacity: 0;
+  transition: transform 0.3s linear, opacity 0.1s linear;
+  transform-origin: right center;
 
   &:focus {
     border: 1px solid $c-purple;
+  }
+
+  .active & {
+    transform: scaleX(1);
+    opacity: 1;
   }
 
   @media (min-width: $stop-scaling) {
