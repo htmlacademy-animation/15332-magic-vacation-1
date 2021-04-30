@@ -181,12 +181,18 @@ $animation-func: cubic-bezier(0, 0.65, 0.5, 0.91);
 }
 
 .page-header__menu {
+  opacity: 0;
   font-family: $font-alt;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.0418;
   color: $c-light;
+  transition: opacity 0.3s $animation-func 0.3s;
+
+  .page-loaded & {
+    opacity: 1;
+  }
 
   @media (min-width: $stop-scaling) {
     font-size: 12px;
