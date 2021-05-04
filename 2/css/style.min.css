@@ -3166,9 +3166,13 @@ img {
   width: 4rem;
   height: 4rem;
   color: #5f458c;
-  border-radius: 50%; }
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.1s ease-in 0.4s; }
   .social-block__toggler:focus {
     outline: none; }
+  .page-loaded .social-block__toggler {
+    opacity: 1; }
   @media (max-width: 1024px) and (orientation: portrait) {
     .social-block__toggler {
       display: none; } }
@@ -3186,7 +3190,11 @@ img {
     border-radius: 50%;
     background-color: #ffffff;
     border: 2px solid #ffffff;
-    z-index: -1; }
+    z-index: -1;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s cubic-bezier(0, 1.5, 1, 1.1) 0.6s; }
+    .page-loaded .social-block__toggler::before {
+      transform: translate(-50%, -50%) scale(1); }
   .social-block__toggler svg {
     position: absolute;
     top: 50%;
