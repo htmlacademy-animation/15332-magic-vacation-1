@@ -3192,7 +3192,7 @@ img {
     border: 2px solid #ffffff;
     z-index: -1;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.2s cubic-bezier(0, 1.5, 1, 1.1) 0.6s; }
+    transition: transform 0.2s cubic-bezier(0, 1.5, 1, 1.1) 0.6s, width 0.2s ease-out, height 0.2s ease-out; }
     .page-loaded .social-block__toggler::before {
       transform: translate(-50%, -50%) scale(1); }
   .social-block__toggler svg {
@@ -3205,11 +3205,13 @@ img {
     height: 2.2rem; }
   .social-block__toggler:hover,
   .social-block--active .social-block__toggler {
-    color: #a67ee5; }
+    color: #a67ee5;
+    transition: color 0.2s ease-in; }
     .social-block__toggler:hover::before,
     .social-block--active .social-block__toggler::before {
       width: 112.5%;
-      height: 112.5%; }
+      height: 112.5%;
+      transition: width 0.2s ease-out 0.2s, height 0.2s ease-out 0.2s; }
   .social-block__toggler:focus {
     color: #a67ee5;
     outline: none; }
