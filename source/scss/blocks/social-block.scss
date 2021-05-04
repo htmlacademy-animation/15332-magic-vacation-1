@@ -42,7 +42,10 @@
     border: 2px solid $c-light;
     z-index: -1;
     transform: translate(-50%, -50%) scale(0);
-    transition: transform 0.2s cubic-bezier(0, 1.5, 1, 1.1) 0.6s;
+    transition:
+      transform 0.2s cubic-bezier(0, 1.5, 1, 1.1) 0.6s,
+      width 0.2s ease-out,
+      height 0.2s ease-out;
 
     .page-loaded & {
       transform: translate(-50%, -50%) scale(1);
@@ -59,10 +62,14 @@
   &:hover,
   .social-block--active & {
     color: $c-purple;
+    transition: color 0.2s ease-in;
 
     &::before {
       width: 112.5%;
       height: 112.5%;
+      transition:
+        width 0.2s ease-out 0.2s,
+        height 0.2s ease-out 0.2s;
     }
   }
 
