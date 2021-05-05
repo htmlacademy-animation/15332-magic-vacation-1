@@ -1,3 +1,5 @@
+$animation-func: cubic-bezier(0, 0.65, 0.5, 0.91);
+
 .page-header {
   position: fixed;
   top: 0;
@@ -35,6 +37,14 @@
   padding: 1rem 0;
   width: 10rem;
   color: $c-light;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s $animation-func 0.2s, transform 0.3s $animation-func 0.2s;
+
+  .page-loaded & {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   @media (min-width: $stop-scaling) {
     top: -5px;
@@ -171,12 +181,18 @@
 }
 
 .page-header__menu {
+  opacity: 0;
   font-family: $font-alt;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 1.2rem;
   line-height: 1.0418;
   color: $c-light;
+  transition: opacity 0.3s $animation-func 0.3s;
+
+  .page-loaded & {
+    opacity: 1;
+  }
 
   @media (min-width: $stop-scaling) {
     font-size: 12px;
