@@ -9,12 +9,13 @@ export default class FullPageScroll {
 
     this.activeScreen = 0;
     this.onScrollHandler = this.onScroll.bind(this);
-    this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.onUrlHashChangedHandler = this.onUrlHashChanged.bind(this);
+    this.screensWithOverlay = [`prizes`];
   }
 
   init() {
     document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT, {trailing: true}));
-    window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
+    window.addEventListener(`popstate`, this.onUrlHashChangedHandler);
 
     this.onUrlHashChanged();
   }
@@ -23,8 +24,12 @@ export default class FullPageScroll {
     const currentPosition = this.activeScreen;
     this.reCalculateActiveScreenPosition(evt.deltaY);
     if (currentPosition !== this.activeScreen) {
-      this.changePageDisplay();
+      this.changeHash();
     }
+  }
+
+  changeHash() {
+    location.hash = this.screenElements[this.activeScreen].id;
   }
 
   onUrlHashChanged() {
