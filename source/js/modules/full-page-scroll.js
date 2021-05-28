@@ -6,37 +6,59 @@ export default class FullPageScroll {
 
     this.screenElements = document.querySelectorAll(`.screen:not(.screen--result)`);
     this.menuElements = document.querySelectorAll(`.page-header__menu .js-menu-link`);
+    this.screenOverlay = document.querySelector(`.js-overlay`);
 
     this.activeScreen = 0;
+    this.prevScreen = null;
     this.onScrollHandler = this.onScroll.bind(this);
-    this.onUrlHashChengedHandler = this.onUrlHashChanged.bind(this);
+    this.onUrlHashChangedHandler = this.onUrlHashChanged.bind(this);
+    this.overlayTransitions = [
+      [`story`, `prizes`]
+    ];
   }
 
   init() {
     document.addEventListener(`wheel`, throttle(this.onScrollHandler, this.THROTTLE_TIMEOUT, {trailing: true}));
-    window.addEventListener(`popstate`, this.onUrlHashChengedHandler);
+    window.addEventListener(`popstate`, this.onUrlHashChangedHandler);
 
     this.onUrlHashChanged();
   }
 
   onScroll(evt) {
     const currentPosition = this.activeScreen;
-    this.reCalculateActiveScreenPosition(evt.deltaY);
-    if (currentPosition !== this.activeScreen) {
-      this.changePageDisplay();
+    const newPosition = this.reCalculateActiveScreenPosition(evt.deltaY);
+
+    if (currentPosition !== newPosition) {
+      const newHash = this.screenElements[newPosition].id;
+
+      this.changeHash(newHash);
     }
+  }
+
+  changeHash(newHash) {
+    location.hash = newHash;
   }
 
   onUrlHashChanged() {
     const newIndex = Array.from(this.screenElements).findIndex((screen) => location.hash.slice(1) === screen.id);
+    this.prevScreen = this.activeScreen;
     this.activeScreen = (newIndex < 0) ? 0 : newIndex;
+
     this.changePageDisplay();
   }
 
   changePageDisplay() {
-    this.changeVisibilityDisplay();
     this.changeActiveMenuItem();
+    this.changeScreen();
     this.emitChangeDisplayEvent();
+  }
+
+  changeScreen() {
+    if (this.needOverlayTransition()) {
+      this.showOverlay();
+    } else {
+      this.changeVisibilityDisplay();
+    }
   }
 
   changeVisibilityDisplay() {
@@ -72,9 +94,33 @@ export default class FullPageScroll {
 
   reCalculateActiveScreenPosition(delta) {
     if (delta > 0) {
-      this.activeScreen = Math.min(this.screenElements.length - 1, ++this.activeScreen);
+      return Math.min(this.screenElements.length - 1, this.activeScreen + 1);
     } else {
-      this.activeScreen = Math.max(0, --this.activeScreen);
+      return Math.max(0, this.activeScreen - 1);
     }
+  }
+
+  needOverlayTransition() {
+    if (!this.prevScreen) {
+      return false;
+    }
+
+    const prevName = this.screenElements[this.prevScreen].id;
+    const activeName = this.screenElements[this.activeScreen].id;
+
+    return this.overlayTransitions.some((transition) => {
+      return prevName === transition[0] && activeName === transition[1];
+    });
+  }
+
+  showOverlay() {
+    this.screenOverlay.classList.add(`screen__overlay--active`);
+    this.screenOverlay.addEventListener(`transitionend`, () => {
+      this.changeVisibilityDisplay();
+
+      setTimeout(() => {
+        this.screenOverlay.classList.remove(`screen__overlay--active`);
+      }, 100);
+    }, {once: true});
   }
 }
