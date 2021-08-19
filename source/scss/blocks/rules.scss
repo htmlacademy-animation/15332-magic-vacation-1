@@ -152,6 +152,7 @@
     left: 0;
     width: 4.5rem;
     height: 4.5rem;
+    margin-top: 0.3rem;
     font-family: $font-alt;
     font-weight: 400;
     font-size: 2.4rem;
@@ -159,6 +160,7 @@
     border-radius: 50%;
     line-height: 5rem;
     text-align: center;
+    animation: bump 0.5s cubic-bezier(0.15, 1.36, 1, 1.2) both;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
@@ -179,9 +181,24 @@
 
   p {
     margin: 0;
+    animation:
+      fade-in 0.4s cubic-bezier(0.33, 1, 0.68, 1) 0.35s both,
+      slide-in 0.4s cubic-bezier(0.33, 1, 0.68, 1) 0.35s both;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       min-height: calc(1.4rem * 2.2);
+    }
+  }
+
+  @for $i from 2 through 4 {
+    &:nth-child(#{$i}) {
+      &::before {
+        animation-delay: $i * 0.2s;
+      }
+
+      p {
+        animation-delay: $i * 0.2s;
+      }
     }
   }
 }
@@ -209,5 +226,35 @@
   @media (max-width: $mobile) and (orientation: landscape) {
     bottom: 2rem;
     right: 1.5rem;
+  }
+}
+
+@keyframes bump {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(30px);
+  }
+
+  to {
+    transform: translateX(0);
   }
 }
