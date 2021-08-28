@@ -144,9 +144,8 @@
     font-size: 1.2rem;
   }
 
-  &::before {
-    content: counter(li);
-    counter-increment: li;
+  &::before,
+  &::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -156,11 +155,9 @@
     font-family: $font-alt;
     font-weight: 400;
     font-size: 2.4rem;
-    background-color: $c-purple;
     border-radius: 50%;
     line-height: 5rem;
     text-align: center;
-    animation: bump 0.5s cubic-bezier(0.15, 1.36, 1, 1.2) both;
 
     @media (max-width: $tablet) and (orientation: portrait) {
       top: 1rem;
@@ -177,6 +174,18 @@
       line-height: 3rem;
       font-size: 1.4rem;
     }
+  }
+
+  &::before {
+    content: "";
+    background-color: $c-purple;
+    animation: bump 0.5s cubic-bezier(0.15, 1.36, 1, 1.2) both;
+  }
+
+  &::after {
+    content: counter(li);
+    counter-increment: li;
+    animation: fade-in 0.5s ease-out 0.4s both;
   }
 
   p {
