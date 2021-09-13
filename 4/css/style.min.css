@@ -3202,7 +3202,7 @@ img {
   transform-origin: right center;
 }
 .rules__link::before {
-  transition: width 0.3s;
+  transition: max-width 0.3s;
   transform-origin: right center;
 }
 @media (min-width: 2000px) {
@@ -3242,15 +3242,15 @@ img {
 
 @keyframes show-button {
   0% {
-    width: 6.12rem;
+    max-width: 6.12rem;
     opacity: 0;
   }
   30% {
-    width: 6.12rem;
+    max-width: 6.12rem;
     opacity: 1;
   }
   100% {
-    width: 20rem;
+    max-width: 30rem;
   }
 }
 .screen {
