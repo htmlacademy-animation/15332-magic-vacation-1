@@ -218,9 +218,11 @@
   right: 5.6rem;
   overflow: hidden;
   animation: show-button 0.4s ease-out 0.8s both;
+  transform-origin: right center;
 
   &::before {
     transition: width 0.3s;
+    transform-origin: right center;
   }
 
   @media (min-width: $stop-scaling) {
@@ -244,24 +246,29 @@
   }
 }
 
+.rules__link-text {
+  display: inline-block;
+  max-width: 100%;
+  opacity: 0;
+  animation: fade-in 0.2s ease-out 1.15s both;
+
+  .screen.active & {
+    opacity: 1;
+  }
+}
+
 @keyframes show-button {
   0% {
+    width: 6.12rem; // 62px
     opacity: 0;
-    width: 70px;
-    color: #ffffff;
   }
 
   30% {
+    width: 6.12rem;
     opacity: 1;
-    width: 70px;
-  }
-
-  90% {
-    color: #ffffff;
   }
 
   100% {
-    width: 209px;
-    color: #5f458c;
+    width: 20rem;
   }
 }
